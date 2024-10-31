@@ -86,8 +86,8 @@ const displayCategories = (categories) => {
 
 //Dynamic Video Sections
 // load videos
-const loadVideos = () => {
-  fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+const loadVideos = (searchText="") => {
+  fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`)
     .then((res) => res.json())
     .then((data) => displayVideos(data.videos))
     .catch((error) => console.error(error));
@@ -164,6 +164,11 @@ const displayVideos = (videos) => {
     videoContainer.appendChild(card);
   });
 };
+
+document.getElementById("search-input").addEventListener ("keyup", (e) => {
+  loadVideos(e.target.value);
+  
+})
 
 loadCategories();
 loadVideos();
